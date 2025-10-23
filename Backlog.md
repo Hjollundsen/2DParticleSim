@@ -8,4 +8,4 @@
 - [ ] Particle should have given size from argument list
 - [ ] Particle should accelerate according to gravity constant
 - [ ] Applying force to a particle should move it accordingly
-- [ ] 
+- [ ] An empty Particle Simulation should contain 
