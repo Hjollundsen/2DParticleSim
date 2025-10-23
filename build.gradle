@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'java-test-fixtures'
 }
 
 group = 'org.example'
@@ -10,9 +11,15 @@ repositories {
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    // Use JUnit Jupiter API for testing.
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.11.4'
+    // Use JUnit Jupiter Engine for testing.
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.11.4'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // Use the Hamcrest matcher library
+    testImplementation group: 'org.hamcrest',
+            name: 'hamcrest-library', version: '2.2'
 }
 
 test {
