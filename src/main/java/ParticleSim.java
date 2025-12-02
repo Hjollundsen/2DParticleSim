@@ -11,4 +11,9 @@ public interface ParticleSim {
      * Update all particles in the simulation
      */
     public void updateParticles();
+
+    /**
+     * Adds observer to the particleSim
+     */
+    public void addObserver(ParticleSimObserver particleSimObserver);
 }

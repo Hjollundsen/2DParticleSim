@@ -1,14 +1,16 @@
 import java.util.*;
 
-public class StandardParticleSim implements ParticleSim{
+public class GravitySim implements ParticleSim{
     private ArrayList<Particle> particles;
+    private ArrayList<ParticleSimObserver> observers;
 
-    public StandardParticleSim(int noOfParticles, int rows, int cols, double distance) {
+    public GravitySim(int noOfParticles, int rows, int cols, double distance) {
         particles = new ArrayList<>();
+        observers = new ArrayList<>();
         for(int i=1; i <= rows; i++){
             for(int j=1; j <= cols; j++){
                 if(particles.size() < noOfParticles) {
-                    Particle p = new Particle(i * distance, j * distance);
+                    Particle p = new Particle(j * distance, i * distance);
                     particles.add(p);
                 }
             }
@@ -27,10 +29,16 @@ public class StandardParticleSim implements ParticleSim{
             p.updateSpeed(1);
             p.updatePosition(1);
         }
+        notifyObservers();
     }
 
     public void addParticle(Particle p) {
         particles.add(p);
+    }
+
+    @Override
+    public void addObserver(ParticleSimObserver p) {
+        observers.add(p);
     }
 
     public void printParticles() {
@@ -40,28 +48,9 @@ public class StandardParticleSim implements ParticleSim{
         }
     }
 
-    public static void main(String[] args) {
-        StandardParticleSim sp = new StandardParticleSim(0,0,0,0);
-        Particle p = new Particle(25, 25);
-        sp.addParticle(p);
-        Timer timer = new Timer();
-        final double timestep = 0.017;
-        TimerTask task = new TimerTask() {
-            int steps = 0;
-
-            @Override
-            public void run() {
-                steps++;
-                sp.updateParticles();
-                sp.printParticles();
-
-                if(steps > 120) {
-                    timer.cancel();
-                    System.out.println("Timer stopped");
-                }
-            }
-        };
-
-        timer.scheduleAtFixedRate(task, 0, 17);
+    public void notifyObservers() {
+        for(ParticleSimObserver p : observers){
+            p.onParticlesUpdated();
+        }
     }
 }

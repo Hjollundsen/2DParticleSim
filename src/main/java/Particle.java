@@ -40,16 +40,16 @@ public class Particle {
         return ay;
     }
 
-    public void applyGravity(int dt) {
+    public void applyGravity(double dt) {
         ay = Constants.GRAVITY_CONSTANT * dt;
     }
 
-    public void updateSpeed(int dt) {
+    public void updateSpeed(double dt) {
         vx += ax * dt;
         vy += ay * dt;
     }
 
-    public void updatePosition(int dt) {
+    public void updatePosition(double dt) {
         x += vx * dt;
         y += vy * dt;
         if(y <= 0) {
